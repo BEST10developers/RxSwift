@@ -17,6 +17,7 @@
 class RxPickerViewDataSource: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
 
     var titles: [[String]]?
+    var componentWidths: [CGFloat]?
 
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return titles?.count ?? 0
@@ -28,6 +29,10 @@ class RxPickerViewDataSource: NSObject, UIPickerViewDelegate, UIPickerViewDataSo
 
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return titles?[component][row] ?? ""
+    }
+
+    func pickerView(pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+        return componentWidths?[component] ?? 0
     }
 
 }

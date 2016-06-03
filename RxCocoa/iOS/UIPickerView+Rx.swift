@@ -40,13 +40,14 @@ extension UIPickerView {
         return RxPickerViewDataSourceProxy.proxyForObject(self)
     }
 
-    public var rx_titles: (source: Observable<[[String]]>) -> Disposable {
+    public var rx_titlesAndWidths: (source: Observable<(titles: [[String]], widths: [CGFloat])>) -> Disposable {
         return { source in
             let dataSource = RxPickerViewDataSource()
             return source.subscribeProxyDataSourceForObject(self, dataSource: dataSource, retainDataSource: false) { [weak self] (_: RxPickerViewDataSourceProxy, event) in
                 self?.dataSource = dataSource
                 self?.delegate = dataSource
-                dataSource.titles = event.element
+                dataSource.titles = event.element?.titles
+                dataSource.componentWidths = event.element?.widths
             }
         }
     }
